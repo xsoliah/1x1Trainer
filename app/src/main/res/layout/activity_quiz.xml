@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <ImageView
+        android:id="@+id/quiz_countdown_background"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/round_button"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/quiz_background_modal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:src="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@+id/quiz_back_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:color/darker_gray" />
+
+    <ImageView
+        android:id="@+id/quiz_fake_middle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/quiz_background_modal"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_background_modal"
+        app:layout_constraintStart_toStartOf="@+id/quiz_background_modal"
+        app:layout_constraintTop_toTopOf="@+id/quiz_background_modal"
+        app:srcCompat="@android:color/background_light" />
+
+    <com.example.manuel.a1x1trainer.Drawable.PaintView
+        android:id="@+id/quiz_left_paint_edit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/quiz_fake_middle"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_fake_middle"
+        app:layout_constraintTop_toTopOf="@+id/quiz_fake_middle"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.example.manuel.a1x1trainer.Drawable.PaintView
+        android:id="@+id/quiz_right_paint_edit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/quiz_fake_middle"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="@id/quiz_fake_middle"
+        app:layout_constraintTop_toTopOf="@id/quiz_fake_middle" />
+
+    <Button
+        android:id="@+id/quiz_clear_btn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="LÖSCHEN"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/quiz_progressbar"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_right_paint_edit"
+        app:layout_constraintStart_toStartOf="@+id/quiz_right_paint_edit"
+        app:layout_constraintTop_toBottomOf="@+id/quiz_fake_middle" />
+
+    <Button
+        android:id="@+id/quiz_ok_btn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="OK"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/quiz_progressbar"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_left_paint_edit"
+        app:layout_constraintStart_toStartOf="@+id/quiz_left_paint_edit"
+        app:layout_constraintTop_toBottomOf="@+id/quiz_fake_middle" />
+
+    <Button
+        android:id="@+id/quiz_back_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/quiz_progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_background_modal"
+        app:layout_constraintStart_toStartOf="@+id/quiz_background_modal" />
+
+    <ImageView
+        android:id="@+id/quiz_titlebar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="74dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="74dp"
+        android:layout_marginBottom="16dp"
+        android:src="@android:color/holo_green_dark"
+        app:layout_constraintBottom_toTopOf="@+id/quiz_fake_middle"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_background_modal"
+        app:layout_constraintStart_toStartOf="@+id/quiz_background_modal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:color/holo_green_dark" />
+
+    <TextView
+        android:id="@+id/quiz_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/quiz_titlebar"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_titlebar"
+        app:layout_constraintHorizontal_bias="0.42"
+        app:layout_constraintStart_toStartOf="@+id/quiz_titlebar"
+        app:layout_constraintTop_toTopOf="@+id/quiz_titlebar" />
+
+    <TextView
+        android:id="@+id/quiz_answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/quiz_titlebar"
+        app:layout_constraintStart_toEndOf="@+id/quiz_question"
+        app:layout_constraintTop_toTopOf="@+id/quiz_titlebar" />
+
+    <TextView
+        android:id="@+id/quiz_countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="60"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/quiz_countdown_background"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_countdown_background"
+        app:layout_constraintStart_toStartOf="@+id/quiz_countdown_background"
+        app:layout_constraintTop_toTopOf="@+id/quiz_countdown_background" />
+
+    <ImageView
+        android:id="@+id/quiz_score_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:src="@android:color/holo_orange_light"
+        app:layout_constraintBottom_toTopOf="@+id/quiz_background_modal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/quiz_titlebar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:color/holo_orange_light" />
+
+    <TextView
+        android:id="@+id/quiz_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="0"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/quiz_score_background"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_score_background"
+        app:layout_constraintTop_toTopOf="@+id/quiz_score_background" />
+
+    <ImageView
+        android:id="@+id/quiz_feedback_modal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="8dp"
+        android:src="@android:color/holo_blue_light"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/quiz_fake_middle"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_background_modal"
+        app:layout_constraintStart_toStartOf="@+id/quiz_background_modal"
+        app:layout_constraintTop_toTopOf="@+id/quiz_fake_middle"
+        app:srcCompat="@android:color/holo_blue_light" />
+
+    <TextView
+        android:id="@+id/quiz_feedback_modal_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="36sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/quiz_feedback_modal"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_feedback_modal"
+        app:layout_constraintStart_toStartOf="@+id/quiz_feedback_modal"
+        app:layout_constraintTop_toTopOf="@+id/quiz_feedback_modal" />
+
+    <ProgressBar
+        android:id="@+id/quiz_loading_spinner"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="380dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/quiz_titlebar"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_titlebar"
+        app:layout_constraintStart_toStartOf="@+id/quiz_titlebar"
+        app:layout_constraintTop_toTopOf="@+id/quiz_titlebar" />
+
+
+</android.support.constraint.ConstraintLayout>
+
+
+
+
+<!-- DU IDIOT-->

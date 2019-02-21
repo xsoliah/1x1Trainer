@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:gravity="center_horizontal">
+
+
+    <Button
+        android:id="@+id/kurzspiel_play_btn"
+        android:layout_width="195dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/round_corner"
+        android:text="@string/kurzspiel_play"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/kurzspiel_back_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="h,1:1"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/kurzspiel_worm"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/round_button"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/kurzspiel_play_btn"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/round_button" />
+
+    <Button
+        android:id="@+id/kurzspiel_scoreboard_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/kurzspiel_play_btn" />
+
+    <ImageView
+        android:id="@+id/kurzspiel_titlebar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="106dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="106dp"
+        android:layout_marginBottom="24dp"
+        android:src="@android:color/holo_green_dark"
+        app:layout_constraintBottom_toTopOf="@+id/kurzspiel_bubble"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:color/holo_green_dark" />
+
+    <TextView
+        android:id="@+id/kurzspiel_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/kurzspiel_title"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/kurzspiel_titlebar"
+        app:layout_constraintEnd_toEndOf="@+id/kurzspiel_titlebar"
+        app:layout_constraintStart_toStartOf="@+id/kurzspiel_titlebar"
+        app:layout_constraintTop_toTopOf="@+id/kurzspiel_titlebar" />
+
+    <ImageView
+        android:id="@+id/kurzspiel_bubble"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="106dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="8dp"
+        android:src="@android:color/holo_blue_bright"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/kurzspiel_worm"
+        app:layout_constraintEnd_toEndOf="@+id/kurzspiel_titlebar"
+        app:layout_constraintStart_toStartOf="@+id/kurzspiel_titlebar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:color/holo_blue_bright" />
+
+    <TextView
+        android:id="@+id/kurzspiel_bubble_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/kurzspiel_bubble_line1"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/kurzspiel_bubble"
+        app:layout_constraintStart_toStartOf="@+id/kurzspiel_bubble"
+        app:layout_constraintTop_toTopOf="@+id/kurzspiel_bubble" />
+
+    <TextView
+        android:id="@+id/kurzspiel_bubble_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/kurzspiel_bubble_line2"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/kurzspiel_bubble"
+        app:layout_constraintStart_toStartOf="@+id/kurzspiel_bubble"
+        app:layout_constraintTop_toBottomOf="@+id/kurzspiel_bubble_text1" />
+
+</android.support.constraint.ConstraintLayout>
