@@ -1,7 +1,5 @@
 package com.example.manuel.a1x1trainer;
 
-import android.util.Log;
-
 import com.example.manuel.a1x1trainer.Activities.LoginActivity;
 import com.example.manuel.a1x1trainer.Ressources.RuntimeConstants;
 
@@ -17,7 +15,7 @@ import static com.example.manuel.a1x1trainer.TestUtils.checkButtonClosesActivity
 import static com.example.manuel.a1x1trainer.TestUtils.checkButtonWithText;
 import static com.example.manuel.a1x1trainer.TestUtils.checkButtonWithoutText;
 import static com.example.manuel.a1x1trainer.TestUtils.checkEditText;
-import static com.example.manuel.a1x1trainer.TestUtils.checkImageViewVisible;
+import static com.example.manuel.a1x1trainer.TestUtils.checkViewVisible;
 import static com.example.manuel.a1x1trainer.TestUtils.checkTextViewShows;
 import static com.example.manuel.a1x1trainer.TestUtils.typeTextToEditText;
 
@@ -52,7 +50,7 @@ public class LoginActivityTest {
     public void testInvalidUsernameLogin() {
         typeTextToEditText(R.id.login_password_input, password);
         onView(withId(R.id.login_login_btn)).perform(click());
-        checkImageViewVisible(R.id.login_error_msg);
+        checkViewVisible(R.id.login_error_msg);
         checkTextViewShows(R.id.login_error_msg, R.string.login_invalid_input_err_msg);
     }
 
@@ -60,14 +58,14 @@ public class LoginActivityTest {
     public void testInvalidPasswordLogin() {
         typeTextToEditText(R.id.login_username_input, username);
         onView(withId(R.id.login_login_btn)).perform(click());
-        checkImageViewVisible(R.id.login_error_msg);
+        checkViewVisible(R.id.login_error_msg);
         checkTextViewShows(R.id.login_error_msg, R.string.login_invalid_input_err_msg);
     }
 
     @Test
     public void testInvalidUsernameAndPasswordLogin() {
         onView(withId(R.id.login_login_btn)).perform(click());
-        checkImageViewVisible(R.id.login_error_msg);
+        checkViewVisible(R.id.login_error_msg);
         checkTextViewShows(R.id.login_error_msg, R.string.login_invalid_input_err_msg);
     }
 }

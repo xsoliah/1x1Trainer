@@ -13,8 +13,8 @@ import static com.example.manuel.a1x1trainer.TestUtils.checkActivityAfterClick;
 import static com.example.manuel.a1x1trainer.TestUtils.checkButtonClosesActivity;
 import static com.example.manuel.a1x1trainer.TestUtils.checkButtonWithText;
 import static com.example.manuel.a1x1trainer.TestUtils.checkButtonWithoutText;
-import static com.example.manuel.a1x1trainer.TestUtils.checkImageViewInvisible;
-import static com.example.manuel.a1x1trainer.TestUtils.checkImageViewVisible;
+import static com.example.manuel.a1x1trainer.TestUtils.checkViewInvisible;
+import static com.example.manuel.a1x1trainer.TestUtils.checkViewVisible;
 import static com.example.manuel.a1x1trainer.TestUtils.checkTextViewShows;
 
 public class KurzspielActivityTest {
@@ -24,10 +24,10 @@ public class KurzspielActivityTest {
 
     @Test
     public void testElements() {
-        checkImageViewInvisible(R.id.kurzspiel_bubble);
-        TestUtils.checkImageViewInvisible(R.id.kurzspiel_bubble_text1);
-        TestUtils.checkImageViewInvisible(R.id.kurzspiel_bubble_text2);
-        checkImageViewVisible(R.id.kurzspiel_worm);
+        checkViewInvisible(R.id.kurzspiel_bubble);
+        TestUtils.checkViewInvisible(R.id.kurzspiel_bubble_text1);
+        TestUtils.checkViewInvisible(R.id.kurzspiel_bubble_text2);
+        checkViewVisible(R.id.kurzspiel_worm);
         checkButtonWithoutText(R.id.kurzspiel_back_btn);
         checkButtonWithText(R.id.kurzspiel_play_btn, R.string.kurzspiel_play);
         checkButtonWithoutText(R.id.kurzspiel_scoreboard_btn);
@@ -36,9 +36,9 @@ public class KurzspielActivityTest {
         while (mActivityRule.getActivity().isWormCountdownTimerRunning() == null ||
                 mActivityRule.getActivity().isWormCountdownTimerRunning());
 
-        checkImageViewVisible(R.id.kurzspiel_bubble);
-        checkImageViewVisible(R.id.kurzspiel_bubble_text1);
-        checkImageViewVisible(R.id.kurzspiel_bubble_text2);
+        checkViewVisible(R.id.kurzspiel_bubble);
+        checkViewVisible(R.id.kurzspiel_bubble_text1);
+        checkViewVisible(R.id.kurzspiel_bubble_text2);
     }
 
     @Test

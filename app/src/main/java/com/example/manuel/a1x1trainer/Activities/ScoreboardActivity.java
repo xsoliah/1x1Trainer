@@ -2,7 +2,9 @@ package com.example.manuel.a1x1trainer.Activities;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -50,6 +52,7 @@ public class ScoreboardActivity extends GameModeActivity {
         return unsorted;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void renderScoreBoard() {
         ArrayList<HighscoreEntry> scoreBoard = sort(loadScoreBoard());
 
@@ -61,7 +64,7 @@ public class ScoreboardActivity extends GameModeActivity {
             TextView newName = new TextView(this);
             newName.setText(entry.getName());
             newName.setLayoutParams(sampleTableTextView.getLayoutParams());
-            newName.setTextColor(Color.parseColor(getString(R.string.color_black)));
+            newName.setTextColor(getColor(R.color.black));
             newName.setGravity(sampleTableTextView.getGravity());
             newName.setTextSize(COMPLEX_UNIT_PX, sampleTableTextView.getTextSize());
 
@@ -70,7 +73,7 @@ public class ScoreboardActivity extends GameModeActivity {
             newScore.setText(entry.getScore().toString());
             newScore.setLayoutParams(sampleTableTextView.getLayoutParams());
             newScore.setGravity(sampleTableTextView.getGravity());
-            newScore.setTextColor(Color.parseColor(getString(R.string.color_black)));
+            newScore.setTextColor(getColor(R.color.black));
             newScore.setTextSize(COMPLEX_UNIT_PX ,sampleTableTextView.getTextSize());
 
             // set parents
@@ -80,6 +83,7 @@ public class ScoreboardActivity extends GameModeActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

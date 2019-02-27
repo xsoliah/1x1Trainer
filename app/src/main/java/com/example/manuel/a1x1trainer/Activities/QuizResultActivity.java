@@ -1,8 +1,11 @@
 package com.example.manuel.a1x1trainer.Activities;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -64,9 +67,8 @@ public class QuizResultActivity extends KonfettiBackgroundActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void renderResultTable() {
-        String green = "#003300";
-        String red = "#b30000";
         List<Question> questions = game.getQuestions();
         Integer counter = 1;
         for (Question question : questions) {
@@ -77,14 +79,14 @@ public class QuizResultActivity extends KonfettiBackgroundActivity {
             newNumber.setText(counter.toString().concat("."));
             newNumber.setLayoutParams(question.isRightUserAnswer() ? trueSampleNumberCell.getLayoutParams() : falseSampleNumberCell.getLayoutParams());
             newNumber.setGravity(question.isRightUserAnswer() ? trueSampleNumberCell.getGravity() : falseSampleNumberCell.getGravity());
-            newNumber.setTextColor(Color.parseColor(getString(R.string.color_black)));
+            newNumber.setTextColor(getColor(R.color.black));
             newNumber.setTextSize(COMPLEX_UNIT_PX , question.isRightUserAnswer() ? trueSampleNumberCell.getTextSize() : falseSampleNumberCell.getTextSize());
 
             // generate question
             TextView newQuestion = new TextView(this);
             newQuestion.setText(question.getLabel().concat(" = ").concat(question.getAnswerString()));
             newQuestion.setLayoutParams(question.isRightUserAnswer() ? trueSampleQuestionCell.getLayoutParams() : falseSampleQuestionCell.getLayoutParams());
-            newQuestion.setTextColor(Color.parseColor(getString(R.string.color_black)));
+            newQuestion.setTextColor(getColor(R.color.black));
             newQuestion.setGravity(question.isRightUserAnswer() ? trueSampleQuestionCell.getGravity() : falseSampleQuestionCell.getGravity());
             newQuestion.setTextSize(COMPLEX_UNIT_PX, question.isRightUserAnswer() ? trueSampleQuestionCell.getTextSize() : falseSampleQuestionCell.getTextSize());
 
@@ -92,7 +94,7 @@ public class QuizResultActivity extends KonfettiBackgroundActivity {
             TextView newAnswer = new TextView(this);
             newAnswer.setText(question.getAnswerString());
             newAnswer.setLayoutParams(question.isRightUserAnswer() ? trueSampleAnswerCell.getLayoutParams() : falseSampleAnswerCell.getLayoutParams());
-            newAnswer.setTextColor(Color.parseColor(question.isRightUserAnswer() ? green : red));
+            newAnswer.setTextColor(question.isRightUserAnswer() ? getColor(R.color.green) : getColor(R.color.red));
             newAnswer.setGravity(question.isRightUserAnswer() ? trueSampleAnswerCell.getGravity() : falseSampleAnswerCell.getGravity());
             newAnswer.setTextSize(COMPLEX_UNIT_PX, question.isRightUserAnswer() ? trueSampleAnswerCell.getTextSize() : falseSampleAnswerCell.getTextSize());
 

@@ -28,7 +28,6 @@ import com.example.manuel.a1x1trainer.Classifier.ClassificationResultPaintViewId
 import com.example.manuel.a1x1trainer.Drawable.PaintView;
 import com.example.manuel.a1x1trainer.Exceptions.GameModeNotPresentException;
 import com.example.manuel.a1x1trainer.R;
-import com.example.manuel.a1x1trainer.Ressources.ConstantStrings;
 import com.example.manuel.a1x1trainer.Ressources.Game;
 import com.example.manuel.a1x1trainer.Ressources.GameMode;
 import com.example.manuel.a1x1trainer.Ressources.Question;
@@ -307,8 +306,8 @@ public class QuizActivity extends ClassificationReceiverActivity {
         boolean success = UserCredentials.CurrentQuestion.isRightUserAnswer();
 
         // open feedback modal
-        feedbackPopup.setAlpha(1.f);
-        feedbackPopupText.setAlpha(1.f);
+        feedbackPopup.setAlpha(RuntimeConstants.ENABLED_ALPHA);
+        feedbackPopupText.setAlpha(RuntimeConstants.ENABLED_ALPHA);
         viewFeedbackModal(success);
 
         // check if user answer was right

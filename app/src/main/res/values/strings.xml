@@ -21,7 +21,6 @@
     <string name="onboarding_delete_button">LÖSCHEN</string>
     <string name="onboarding_go_button">LOS</string>
     <string name="property_name_activity_progress">progress</string>
-    <string name="color_black">#000000</string>
     <string name="result_titlebar">ERGEBNIS</string>
     <string name="postquiz_titlebar">ERGEBNIS</string>
     <string name="postquiz_solved_questions_text">Gelöste Aufgaben:</string>
@@ -44,5 +43,8 @@
     <string name="param_give_answer_response">giveAnswerResponse</string>
     <string name="quiz_feedback_true">RICHTIG!</string>
     <string name="quiz_feedback_false">FALSCH!</string>
+    <string name="quiz_ok_btn">OK</string>
+    <string name="quiz_clear_btn">LÖSCHEN</string>
     <string name="empty_string"></string>
+    <string name="zero">0</string>
 </resources>

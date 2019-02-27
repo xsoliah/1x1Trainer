@@ -17,7 +17,7 @@ import static com.example.manuel.a1x1trainer.TestUtils.checkButtonClosesActivity
 import static com.example.manuel.a1x1trainer.TestUtils.checkButtonWithText;
 import static com.example.manuel.a1x1trainer.TestUtils.checkButtonWithoutText;
 import static com.example.manuel.a1x1trainer.TestUtils.checkIfClassifierWorks;
-import static com.example.manuel.a1x1trainer.TestUtils.checkImageViewVisible;
+import static com.example.manuel.a1x1trainer.TestUtils.checkViewVisible;
 import static com.example.manuel.a1x1trainer.TestUtils.checkTextViewShows;
 
 @RunWith(AndroidJUnit4.class)
@@ -44,7 +44,7 @@ public class OnboardingActivityTest {
         checkButtonWithoutText(R.id.onboarding_action_btn);
 
         // paint edit
-        checkImageViewVisible(R.id.onboarding_paint_edit);
+        checkViewVisible(R.id.onboarding_paint_edit);
 
         // back btn
         checkButtonWithoutText(R.id.onboarding_back_btn);

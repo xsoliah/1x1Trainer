@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.example.manuel.a1x1trainer.Activities.QuizResultActivity;
 import com.example.manuel.a1x1trainer.Ressources.Game;
-import com.example.manuel.a1x1trainer.Ressources.GameMode;
 import com.example.manuel.a1x1trainer.Ressources.Question;
 import com.example.manuel.a1x1trainer.Ressources.QuestionFactory;
 import com.example.manuel.a1x1trainer.Ressources.RuntimeConstants;
@@ -18,15 +17,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.List;
 import java.util.Random;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import okhttp3.internal.Internal;
 
 import static com.example.manuel.a1x1trainer.TestUtils.checkButtonClosesActivity;
-import static com.example.manuel.a1x1trainer.TestUtils.checkImageViewVisible;
+import static com.example.manuel.a1x1trainer.TestUtils.checkViewVisible;
+import static com.example.manuel.a1x1trainer.TestUtils.checkTextColor;
 import static com.example.manuel.a1x1trainer.TestUtils.checkTextViewShows;
 
 @RunWith(AndroidJUnit4.class)
@@ -64,12 +62,13 @@ public class QuizResultActivityTest extends ActivityTest {
     @Test
     public void testElements() {
         // title
-        checkImageViewVisible(R.id.result_titlebar);
+        checkViewVisible(R.id.result_titlebar);
         checkTextViewShows(R.id.result_title_text, R.string.result_titlebar);
 
         TableLayout table = mActivityRule.getActivity().findViewById(R.id.result_table);
         int num_rows = table.getChildCount();
         for (int i = 2; i < num_rows; ++i) {
+            // check texts
             TableRow row = (TableRow) table.getChildAt(i);
             TextView number = (TextView) row.getChildAt(0);
             TextView question = (TextView) row.getChildAt(1);
@@ -79,7 +78,13 @@ public class QuizResultActivityTest extends ActivityTest {
             assert number.getText().equals(Integer.toString(i-1).concat("."));
             assert question.getText().equals(currentSampleQuestion.getLabel().concat(" = ").concat(currentSampleQuestion.getAnswerString()));
             assert answer.equals(currentSampleQuestion.getUserAnswer());
-            // TODO: check color
+
+            // check color
+            if (currentSampleQuestion.isRightUserAnswer()) {
+                checkTextColor(answer.getId(), R.color.green);
+            } else {
+                checkTextColor(answer.getId(), R.color.red);
+            }
         }
     }
 

@@ -36,6 +36,8 @@ public class RuntimeConstants {
     public static final Integer PROGRESS_FACTOR = 50;
     public static final Integer OVERLAY_ANIMATION_DELAY = 1000;
     public static final Integer OVERLAY_VISIBLE_DELAY = 1000;
+    public static final Float ENABLED_ALPHA = 1.f;
+    public static final Float DISABLED_ALPHA = .8f;
 
 
 

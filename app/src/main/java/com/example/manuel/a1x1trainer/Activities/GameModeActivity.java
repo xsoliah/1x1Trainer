@@ -1,19 +1,13 @@
 package com.example.manuel.a1x1trainer.Activities;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 
 import com.example.manuel.a1x1trainer.Exceptions.GameModeNotPresentException;
 import com.example.manuel.a1x1trainer.R;
 import com.example.manuel.a1x1trainer.Ressources.GameMode;
-
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import nl.dionsegijn.konfetti.KonfettiView;
-import nl.dionsegijn.konfetti.models.Shape;
-import nl.dionsegijn.konfetti.models.Size;
+import com.example.manuel.a1x1trainer.Ressources.RuntimeConstants;
 
 public abstract class GameModeActivity extends Activity {
     protected GameMode gameMode;
@@ -34,11 +28,11 @@ public abstract class GameModeActivity extends Activity {
 
     protected void disableButton(Button toDisable) {
         toDisable.setEnabled(false);
-        toDisable.setAlpha(0.8f);
+        toDisable.setAlpha(RuntimeConstants.DISABLED_ALPHA);
     }
 
     protected void enableButton(Button toEnable) {
         toEnable.setEnabled(true);
-        toEnable.setAlpha(1.0f);
+        toEnable.setAlpha(RuntimeConstants.ENABLED_ALPHA);
     }
 }
