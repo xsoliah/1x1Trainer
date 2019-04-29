@@ -1,7 +1,7 @@
 package com.example.manuel.a1x1trainer.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.example.manuel.a1x1trainer.AppServices.AppService;
 import com.example.manuel.a1x1trainer.AppServices.IsUserAllowedService;
 import com.example.manuel.a1x1trainer.R;
-import com.example.manuel.a1x1trainer.Ressources.ConstantStrings;
 import com.example.manuel.a1x1trainer.Ressources.GameMode;
 import com.example.manuel.a1x1trainer.Ressources.RuntimeConstants;
 import com.example.manuel.a1x1trainer.Ressources.UserCredentials;
@@ -21,10 +20,17 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-public class LoginActivity extends Activity {
+/**
+ * Login Activity
+ *
+ * The Pre-Game view before launching the actual Training game
+ * Should provide a possibility to login to play an online game
+ */
+public class LoginActivity extends GameModeActivity {
     private TextView usernameInput;
     private TextView passwordInput;
     private TextView errorMessage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +42,8 @@ public class LoginActivity extends Activity {
         passwordInput = findViewById(R.id.login_password_input);
         errorMessage = findViewById(R.id.login_error_msg);
 
-        Button loginBackButton = (Button)findViewById(R.id.login_back_btn);
+        // back button
+        Button loginBackButton = findViewById(R.id.login_back_btn);
         loginBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,15 +52,31 @@ public class LoginActivity extends Activity {
             }
         });
 
-        Button loginButton = (Button)findViewById(R.id.login_login_btn);
+        // login button
+        Button loginButton = findViewById(R.id.login_login_btn);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 performLogin();
             }
         });
+
+        // register button
+        Button registerButton = findViewById(R.id.login_register_btn);
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: change URL
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.login_register_url)));
+                startActivity(browserIntent);
+            }
+        });
     }
 
+    /**
+     * Performs checks on the entered login credentials and indicates the thread to call the
+     * webservice
+     */
     private void performLogin() {
         if (!isUserNameValid() || !isPasswordValid())
         {
@@ -66,6 +89,9 @@ public class LoginActivity extends Activity {
         uws.execute();
     }
 
+    /**
+     * called when the login was succesfull, navigates to the Onboarding Activity
+     */
     private void successfulLogin() {
         Intent intent = new Intent(LoginActivity.this, OnboardingActivity.class);
         intent.putExtra(getString(R.string.intent_extra_game_mode), GameMode.TRAINING.toString());
@@ -74,6 +100,9 @@ public class LoginActivity extends Activity {
         this.finish();
     }
 
+    /**
+     * checks if the entered username is valid
+     */
     private boolean isUserNameValid() {
         String userNameInputString = usernameInput.getText().toString();
         // checking username length
@@ -82,6 +111,9 @@ public class LoginActivity extends Activity {
         return true;
     }
 
+    /**
+     * checks if the entered is valid
+     */
     private boolean isPasswordValid() {
         String passwordInputString = passwordInput.getText().toString();
         // checking password length
@@ -90,11 +122,20 @@ public class LoginActivity extends Activity {
         return true;
     }
 
+    /**
+     * sets the error message in case of an unsuccessful login
+     * @param message the error-messsage to show
+     */
     private void setErrorMessage(String message)
     {
         errorMessage.setText(message);
     }
 
+    /**
+     * User Manager Web-Service
+     *
+     * Internal class to call a specific Webservice from the Login Activity
+     */
     class UserManagerWebService extends AsyncTask<Void, Void, Boolean> {
         private com.example.manuel.a1x1trainer.AppServices.AppService AppService;
 
@@ -120,12 +161,15 @@ public class LoginActivity extends Activity {
             HttpTransportSE httpTransportSE = new HttpTransportSE(RuntimeConstants.USERMANAGER_URL);
             try {
                 httpTransportSE.call(this.AppService.getSoapAction(), envelope);
+                // parse outer response
                 SoapObject isUserAllowedResponse = (SoapObject)envelope.bodyIn;
                 if (isUserAllowedResponse != null)
                 {
+                    // parse inner response
                     SoapObject loginCredentials = (SoapObject)isUserAllowedResponse.getProperty(0);
                     if (loginCredentials != null)
                     {
+                        // parse primitive fields
                         boolean accepted = (boolean)loginCredentials.getProperty(getString(R.string.login_response_prop_accepted));
                         String hmac = (String)loginCredentials.getProperty(getString(R.string.login_response_prop_hmac));
                         int idUser = (int)loginCredentials.getProperty(getString(R.string.login_response_prop_id_user));

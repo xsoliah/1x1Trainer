@@ -7,6 +7,11 @@ import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
 import nl.dionsegijn.konfetti.models.Size;
 
+/**
+ * Konfetti Background Activity
+ *
+ * Abstract parent class for activities with a konfetti background
+ */
 public abstract class KonfettiBackgroundActivity extends GameModeActivity {
     protected KonfettiView viewKonfetti;
     private boolean isConfettiRendered = false;
@@ -22,9 +27,12 @@ public abstract class KonfettiBackgroundActivity extends GameModeActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        checkRencerConfetti();
+        checkRenderConfetti();
     }
 
+    /**
+     * checks if called from automated testing
+     */
     public void isTestRunning () {
         boolean istest;
 
@@ -40,7 +48,10 @@ public abstract class KonfettiBackgroundActivity extends GameModeActivity {
         isTestRunning = istest;
     }
 
-    protected void checkRencerConfetti() {
+    /**
+     * renders konfetti if not yet rendered in view
+     */
+    protected void checkRenderConfetti() {
         if (!isConfettiRendered && !isTestRunning)
         {
             isConfettiRendered = true;

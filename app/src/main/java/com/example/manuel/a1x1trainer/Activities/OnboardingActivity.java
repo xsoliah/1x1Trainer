@@ -8,31 +8,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.manuel.a1x1trainer.Classifier.ClassificationResultPaintViewIdentifier;
+import com.example.manuel.a1x1trainer.Drawable.PaintView;
 import com.example.manuel.a1x1trainer.Exceptions.GameModeNotPresentException;
 import com.example.manuel.a1x1trainer.R;
-import com.example.manuel.a1x1trainer.Drawable.PaintView;
 import com.example.manuel.a1x1trainer.Ressources.GameMode;
+import com.example.manuel.a1x1trainer.Ressources.RuntimeConstants;
 
 import java.util.Random;
 
+/**
+ * Onboarding Activity
+ *
+ * Pre-game activity that should act like a drawing-classification-test
+ * the user draws a random chosen digit and the classifier tries to recognise that drawen digit
+ */
 public class OnboardingActivity extends ClassificationReceiverActivity {
     private PaintView paintView;
-    private ImageView modalView;
+    private ImageView digitView;
     private TextView classifiedResult;
     private Button actionButton;
-
-    // TODO: remove
-    protected TextView testText;
-
+    private Button scoreboardButton;
     protected Integer digitToDraw;
-
-    public void returnClassificationResult(String s, ClassificationResultPaintViewIdentifier identifier) {
-        classifiedResult.setText(s);
-        if (s.equals(digitToDraw.toString())){
-            actionButton.setText(getString(R.string.onboarding_go_button));
-            // TODO: change background of button
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +37,8 @@ public class OnboardingActivity extends ClassificationReceiverActivity {
         try {
             getGameMode();
         } catch (GameModeNotPresentException e) {
+            // should really never get here
             e.printStackTrace();
-            // TODO: fatal exception --> ??
         }
 
         // get random digit
@@ -53,15 +49,22 @@ public class OnboardingActivity extends ClassificationReceiverActivity {
         setContentView(R.layout.activity_onboarding);
 
         paintView = findViewById(R.id.onboarding_paint_edit);
-        modalView = findViewById(R.id.onboarding_background_modal);
+        digitView = findViewById(R.id.onboarding_digit_to_draw);
+        digitView.setBackgroundResource(RuntimeConstants.digitImages.get(digitToDraw));
         classifiedResult = findViewById(R.id.onboarding_user_input);
         actionButton = findViewById(R.id.onboarding_action_btn);
         actionButton.setText(getString(R.string.onboarding_delete_button));
+        scoreboardButton = findViewById(R.id.onboarding_scoreboard_btn);
 
-
-        // TODO: remove
-        testText = findViewById(R.id.test_text);
-        testText.setText(digitToDraw.toString());
+        scoreboardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OnboardingActivity.this, ScoreboardActivity.class);
+                intent.putExtra(getString(R.string.intent_extra_game_mode), GameMode.KURZSPIEL.toString());
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+        });
 
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,10 +95,24 @@ public class OnboardingActivity extends ClassificationReceiverActivity {
         });
     }
 
-    public void setGameMode(GameMode game_mode) {
-        gameMode = game_mode;
+    /**
+     * implementation of parent method
+     * @param s classified digit represented as string
+     * @param identifier unnecessary
+     */
+    public void returnClassificationResult(String s, ClassificationResultPaintViewIdentifier identifier) {
+        classifiedResult.setText(s);
+        if (s.equals(digitToDraw.toString())){
+            scoreboardButton.setVisibility(View.VISIBLE);
+            actionButton.setText(getString(R.string.onboarding_go_button));
+            actionButton.setBackgroundResource(R.mipmap.button_green);
+        }
     }
 
+    /**
+     * sets the paint views size
+     * @param hasFocus unnecessary
+     */
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);

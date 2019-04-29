@@ -14,12 +14,20 @@ import com.example.manuel.a1x1trainer.Ressources.Game;
 import com.example.manuel.a1x1trainer.Ressources.GameMode;
 import com.example.manuel.a1x1trainer.Ressources.HighscoreEntry;
 import com.example.manuel.a1x1trainer.Ressources.Question;
-import com.example.manuel.a1x1trainer.Ressources.RuntimeConstants;
 import com.google.gson.Gson;
 
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Post Quiz Activity
+ *
+ * Post-game activity, that should show an overview of the results.
+ * Furthermore it should be possible to navigate to Quiz Result Activity to get a detailed
+ * overview of the results.
+ * Before launching the scoreboard the user also has to insert user-credentials
+ * for a highscore entry.
+ */
 public class PostQuizActivity extends KonfettiBackgroundActivity {
     private TextView solvedQuestionsOfTotalQuestionsText;
     private TextView pointsScored;
@@ -55,9 +63,9 @@ public class PostQuizActivity extends KonfettiBackgroundActivity {
         scoreboardNameEdit = findViewById(R.id.postquiz_name_input);
         viewKonfetti = findViewById(R.id.postquiz_view_konfetti);
 
-        String solvedTasksString = new String(getSolvedTasksString() + " / " + RuntimeConstants.MAX_NUMBER_OF_QUESTIONS.toString());
+        String solvedTasksString = new String(getSolvedTasksString() + " / " + game.getCurrentNumberOfQuestions());
         solvedQuestionsOfTotalQuestionsText.setText(solvedTasksString);
-        pointsScored.setText(game.getPoints().toString());
+        pointsScored.setText(game.getScore().toString());
 
         disableButton(checkButton);
 
@@ -92,7 +100,7 @@ public class PostQuizActivity extends KonfettiBackgroundActivity {
             public void onClick(View v) {
                 // TODO: add entry to bestenliste
                 // create new entry for highscores
-                HighscoreEntry new_highscore_entry = new HighscoreEntry(scoreboardNameEdit.getText().toString(), gameMode, game.getPoints());
+                HighscoreEntry new_highscore_entry = new HighscoreEntry(scoreboardNameEdit.getText().toString(), gameMode, game.getScore());
 
                 // generate unique identifier
                 UUID guid = UUID.randomUUID();
@@ -114,6 +122,10 @@ public class PostQuizActivity extends KonfettiBackgroundActivity {
         });
     }
 
+    /**
+     * counts the right answers and returns a string representation
+     * @return
+     */
     private String getSolvedTasksString() {
         // no lambda in java :(
         List<Question> questions = game.getQuestions();

@@ -1,12 +1,10 @@
 package com.example.manuel.a1x1trainer.Activities;
 
-// TODO: check if this is ok
-import android.animation.ObjectAnimator;
-import android.annotation.TargetApi;
-import android.support.annotation.RequiresApi;
-
+// TODO: check if this is neccessary
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -14,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -41,6 +40,11 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+/**
+ * Quiz Activity
+ *
+ * Controlls the whole game until finished or aborted
+ */
 public class QuizActivity extends ClassificationReceiverActivity {
     private PaintView leftPaintEdit;
     private PaintView rightPaintEdit;
@@ -62,12 +66,16 @@ public class QuizActivity extends ClassificationReceiverActivity {
     private ImageView feedbackPopup;
     private TextView feedbackPopupText;
     private TextView score;
+    private ImageView progressWorm;
 
     private boolean countdownRunning;
     private boolean firstCountdown = true;
 
     private long timeRemaining;
 
+    /**
+     * refreshes the answer in the view after a classification
+     */
     private void refreshAnswer() {
         String toSet = currentAnswerLeft.concat(currentAnswerRight);
         // TODO: check neccessary??
@@ -76,6 +84,11 @@ public class QuizActivity extends ClassificationReceiverActivity {
         answerTextView.setText(toSet);
     }
 
+    /**
+     * handles the classification result
+     * @param s classified digit as string
+     * @param identifier classification identifier
+     */
     public void returnClassificationResult(String s, ClassificationResultPaintViewIdentifier identifier) {
         if (identifier == ClassificationResultPaintViewIdentifier.NOT_IMPORTANT)
             return;
@@ -117,12 +130,20 @@ public class QuizActivity extends ClassificationReceiverActivity {
         answerTextView = findViewById(R.id.quiz_answer);
         countdownTextView = findViewById(R.id.quiz_countdown);
         progressBar = findViewById(R.id.quiz_progressbar);
-        progressBar.setMax(RuntimeConstants.MAX_NUMBER_OF_QUESTIONS * RuntimeConstants.PROGRESS_FACTOR);
-        progressBar.setProgress(game.getCurrentQuestions());
+        progressBar.setMax((RuntimeConstants.MAX_NUMBER_OF_QUESTIONS+1) * RuntimeConstants.PROGRESS_FACTOR);
+        progressBar.setProgress((game.getCurrentNumberOfQuestions()+1) * RuntimeConstants.PROGRESS_FACTOR);
         questionLoadingSpinner = findViewById(R.id.quiz_loading_spinner);
         feedbackPopup = findViewById(R.id.quiz_feedback_modal);
         feedbackPopupText = findViewById(R.id.quiz_feedback_modal_text);
         score = findViewById(R.id.quiz_score);
+        progressWorm = findViewById(R.id.quiz_worm);
+
+        // set back button image according to game-mode
+        if (gameMode == GameMode.TRAINING) {
+            quizBackButton.setBackgroundResource(R.mipmap.button_back);
+        } else {
+            quizBackButton.setBackgroundResource(R.mipmap.button_cancel);
+        }
 
         progressBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
 
@@ -130,8 +151,15 @@ public class QuizActivity extends ClassificationReceiverActivity {
         quizBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // game is over --> view results
+                UserCredentials.FinishedGame = game;
+                Intent intent = new Intent(QuizActivity.this, PostQuizActivity.class);
+                intent.putExtra(getString(R.string.intent_extra_game_mode), gameMode.toString());
+                Gson g = new Gson();
+                intent.putExtra(getString(R.string.intent_extra_game), g.toJson(game));
+                startActivity(intent);
+                overridePendingTransition(0,0);
                 finish();
-                overridePendingTransition(0, 0);
             }
         });
 
@@ -165,6 +193,10 @@ public class QuizActivity extends ClassificationReceiverActivity {
         }
     }
 
+    /**
+     * Checks if the game is over, if yes it gets a new question according to game mode, otherwise
+     * navigates to Post Quiz Activity
+     */
     private void getQuestion() {
         disableButton(okButton);
         if (!game.isRunning()) {
@@ -191,12 +223,16 @@ public class QuizActivity extends ClassificationReceiverActivity {
                 getQuestionService.execute();
             }
             else {
-                UserCredentials.CurrentQuestion = QuestionFactory.generateQuestion();
+                UserCredentials.CurrentQuestion = QuestionFactory.createQuestion();
                 viewQuestion(UserCredentials.CurrentQuestion);
             }
         }
     }
 
+    /**
+     * Binds the current question to the view
+     * @param question
+     */
     private void viewQuestion(Question question) {
         // view actions
         questionTextView.setText(question.getLabel().concat(" ="));
@@ -215,6 +251,9 @@ public class QuizActivity extends ClassificationReceiverActivity {
         }
     }
 
+    /**
+     * submits an answer according to the game mode
+     */
     private void submitAnswer() {
         // cancel timer
         if (countdownRunning) {
@@ -225,25 +264,7 @@ public class QuizActivity extends ClassificationReceiverActivity {
         // calculate reactionTime
         int reactionTimeInSeconds = RuntimeConstants.TIME_TO_SOLVE - Integer.parseInt(countdownTextView.getText().toString());
 
-        if (reactionTimeInSeconds <= 0)
-        {
-            // TODO: should never get here right? (timer->onFinish should react)
-            return;
-        }
-
         String answer = answerTextView.getText().toString();
-        if (answer.length() == 0)
-        {
-            // TODO: button shouldn't be clickable, so should not get here anytime
-            // clear and no service call
-            leftPaintEdit.clearScreen();
-            rightPaintEdit.clearScreen();
-            currentAnswerLeft = getString(R.string.empty_string);
-            currentAnswerRight = getString(R.string.empty_string);
-            answerTextView.setText(getString(R.string.empty_string));
-            return;
-        }
-
         UserCredentials.CurrentQuestion.setUserAnswer(answer);
 
         if (gameMode.equals(GameMode.TRAINING)) {
@@ -255,9 +276,14 @@ public class QuizActivity extends ClassificationReceiverActivity {
         }
     }
 
+    /**
+     * Views the feedback modal
+     * Should tell the user if his answer was right or wrong
+     * @param success true if successful
+     */
     public void viewFeedbackModal(boolean success) {
-        String color = success ? "#003300" : "#b30000";
-        feedbackPopupText.setTextColor(Color.parseColor(color));
+        feedbackPopupText.setTextColor(success ? getResources().getColor(R.color.green)
+                : getResources().getColor(R.color.red));
         String text = success ? getString(R.string.quiz_feedback_true) : getString(R.string.quiz_feedback_false);
         feedbackPopupText.setText(text);
         feedbackPopup.setVisibility(View.VISIBLE);
@@ -302,6 +328,10 @@ public class QuizActivity extends ClassificationReceiverActivity {
     private final Integer THOUSAND = 1000;
     private final long INTERVAL = 10;
 
+    /**
+     * evaluates the user answer and performs following actions
+     *      * in the end getQuestion is called to request a new question
+     */
     private void evaluateUserAnswer() {
         boolean success = UserCredentials.CurrentQuestion.isRightUserAnswer();
 
@@ -313,21 +343,21 @@ public class QuizActivity extends ClassificationReceiverActivity {
         // check if user answer was right
         if (success) {
             double secondsRemaining = (timeRemaining % ONE_MINUTE / THOUSAND);
-            final double score = (secondsRemaining / (double) RuntimeConstants.TIME_TO_SOLVE) *
-                    (double) RuntimeConstants.MAX_POINTS_PER_QUESTION;
+            final double score = ((secondsRemaining / (double) RuntimeConstants.TIME_TO_SOLVE) *
+                    (double) RuntimeConstants.MAX_POINTS_PER_QUESTION) / 2;
 
             // increase points animation
             final CountDownTimer increasePointsCountdown = new CountDownTimer((long)score, INTERVAL) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     float fg_pc = (float)(score-millisUntilFinished)/(float)score;
-                    QuizActivity.this.score.setText(String.valueOf(game.getPoints() + (int)(fg_pc * score)));
+                    QuizActivity.this.score.setText(String.valueOf(game.getScore() + (int)(fg_pc * score)));
                 }
 
                 @Override
                 public void onFinish() {
                     game.addPointsToScore((int)score);
-                    QuizActivity.this.score.setText(String.valueOf(game.getPoints()));
+                    QuizActivity.this.score.setText(String.valueOf(game.getScore()));
                 }
             }.start();
         }
@@ -343,23 +373,32 @@ public class QuizActivity extends ClassificationReceiverActivity {
         ObjectAnimator oa;
         oa = ObjectAnimator.ofInt(progressBar, getString(R.string.property_name_activity_progress),
                 progressBar.getProgress(),
-                game.getCurrentQuestions()* RuntimeConstants.PROGRESS_FACTOR);
+                (game.getCurrentNumberOfQuestions()+1)* RuntimeConstants.PROGRESS_FACTOR);
         oa.setDuration(1000);
+        ObjectAnimator oa1;
+        // reset progress worm
+        float progress_pc = (float)game.getCurrentNumberOfQuestions() / (float)(RuntimeConstants.MAX_NUMBER_OF_QUESTIONS+1);
+        float progress_x = progressBar.getX() + (progressBar.getWidth() * progress_pc);
+        oa1 = ObjectAnimator.ofFloat(progressWorm, "x", progressWorm.getX(), progress_x);
+        oa1.setDuration(1000);
         oa.start();
-        //progressBar.setProgress(game.getCurrentQuestions());
+        oa1.start();
 
         // get new question
         getQuestion();
     }
 
+    /**
+     * Restarts the countdown
+     */
     private void restartCountDown() {
-        timeRemaining = 60000;
+        int millisRemaining = RuntimeConstants.TIME_TO_SOLVE*1000;
         countdownRunning = true;
-        countDownTimer = new CountDownTimer(60000, 1000) {
+        countDownTimer = new CountDownTimer(millisRemaining, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timeRemaining = millisUntilFinished;
-                Integer seconds = (int)(millisUntilFinished % 600000 / 1000);
+                Integer seconds = (int)(millisUntilFinished % (RuntimeConstants.TIME_TO_SOLVE * 10000) / 1000);
                 countdownTextView.setText(seconds.toString());
             }
 
@@ -367,6 +406,7 @@ public class QuizActivity extends ClassificationReceiverActivity {
             public void onFinish() {
                 // TODO: what if time runs out
                 countdownRunning = false;
+                evaluateUserAnswer();
             }
         }.start();
     }
@@ -378,9 +418,20 @@ public class QuizActivity extends ClassificationReceiverActivity {
         double height = leftPaintEdit.getHeight();
         leftPaintEdit.init((int)height, (int)height, this, ClassificationResultPaintViewIdentifier.LEFT);
         rightPaintEdit.init((int)height, (int)height, this, ClassificationResultPaintViewIdentifier.RIGHT);
+
+        int[] coordinates = new int[2];
+        progressBar.getLocationOnScreen(coordinates);
+
+        progressWorm.setX(progressBar.getX());
+
         loadModel();
     }
 
+    /**
+     * Einmaleins API Web-Service
+     *
+     * Internal class to call a specific Webservice from the Quiz Activity
+     */
     class EinmalEinsApiWebService extends AsyncTask<Void, Void, SoapObject> {
         private com.example.manuel.a1x1trainer.AppServices.AppService AppService;
 

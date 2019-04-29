@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@mipmap/background"
     android:gravity="center_horizontal">
 
 
@@ -13,45 +12,53 @@
         android:layout_width="195dp"
         android:layout_height="60dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/round_corner"
+        android:background="@mipmap/button_orange"
+        android:fontFamily="sans-serif"
+        android:shadowColor="@color/black"
+        android:shadowDy="-5"
+        android:shadowRadius="5"
         android:text="@string/kurzspiel_play"
+        android:textColor="@android:color/background_light"
+        android:textIsSelectable="false"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/kurzspiel_back_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@mipmap/button_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="h,1:1"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/kurzspiel_worm"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/round_button"
+        android:background="@mipmap/worm2"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/kurzspiel_play_btn"
-        app:layout_constraintDimensionRatio="w,1:1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/round_button" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/kurzspiel_scoreboard_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/kurzspiel_play_btn" />
+        android:background="@mipmap/button_highscore"
+        app:layout_constraintBottom_toBottomOf="@+id/kurzspiel_play_btn"
+        app:layout_constraintStart_toEndOf="@+id/kurzspiel_play_btn"
+        app:layout_constraintTop_toTopOf="@+id/kurzspiel_play_btn" />
 
     <ImageView
         android:id="@+id/kurzspiel_titlebar"
@@ -60,18 +67,22 @@
         android:layout_marginStart="106dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="106dp"
-        android:layout_marginBottom="24dp"
-        android:src="@android:color/holo_green_dark"
+        android:layout_marginBottom="8dp"
+        android:src="@mipmap/panel_header"
         app:layout_constraintBottom_toTopOf="@+id/kurzspiel_bubble"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/holo_green_dark" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/kurzspiel_title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif"
+        android:shadowColor="@color/black"
+        android:shadowDy="-5"
+        android:shadowRadius="5"
         android:text="@string/kurzspiel_title"
         android:textColor="@android:color/background_light"
         android:textSize="24sp"
@@ -85,17 +96,18 @@
         android:id="@+id/kurzspiel_bubble"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="106dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="68dp"
         android:layout_marginBottom="8dp"
-        android:src="@android:color/holo_blue_bright"
+        android:background="@mipmap/tooltip"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/kurzspiel_worm"
         app:layout_constraintEnd_toEndOf="@+id/kurzspiel_titlebar"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/kurzspiel_titlebar"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/holo_blue_bright" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/kurzspiel_bubble_text1"
@@ -106,7 +118,6 @@
         android:text="@string/kurzspiel_bubble_line1"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
-        android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/kurzspiel_bubble"
         app:layout_constraintStart_toStartOf="@+id/kurzspiel_bubble"
@@ -120,7 +131,6 @@
         android:text="@string/kurzspiel_bubble_line2"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
-        android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/kurzspiel_bubble"
         app:layout_constraintStart_toStartOf="@+id/kurzspiel_bubble"

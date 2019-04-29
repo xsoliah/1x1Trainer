@@ -1,13 +1,22 @@
 package com.example.manuel.a1x1trainer.Activities;
 
-import com.example.manuel.a1x1trainer.Activities.GameModeActivity;
 import com.example.manuel.a1x1trainer.Classifier.ClassificationResultPaintViewIdentifier;
 import com.example.manuel.a1x1trainer.Classifier.TensorFlowClassifier;
 import com.example.manuel.a1x1trainer.Ressources.RuntimeConstants;
 
+
+/**
+ * Classification Receiver Activity
+ *
+ * Abstract parent class for activities which are receiving classification results from a PaintView
+ */
 public abstract class ClassificationReceiverActivity extends GameModeActivity {
     public TensorFlowClassifier classifier;
     public abstract void returnClassificationResult(String s, ClassificationResultPaintViewIdentifier identifier);
+
+    /**
+     * Loads the tensorflow model
+     */
     public void loadModel() {
         //The Runnable interface is another way in which you can implement multi-threading other than extending the
         // //Thread class due to the fact that Java allows you to extend only one class. Runnable is just an interface,

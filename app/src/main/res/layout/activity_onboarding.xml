@@ -2,10 +2,9 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="@mipmap/background">
 
     <Button
         android:id="@+id/onboarding_action_btn"
@@ -14,8 +13,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/round_corner"
-        android:text="LÖSCHEN"
+        android:background="@mipmap/button_orange"
+        android:fontFamily="sans-serif"
+        android:shadowColor="@color/black"
+        android:shadowDy="-5"
+        android:shadowRadius="5"
+        android:text="@string/onboarding_delete_button"
+        android:textColor="@android:color/background_light"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,25 +34,50 @@
         android:layout_marginTop="64dp"
         android:layout_marginEnd="64dp"
         android:layout_marginBottom="8dp"
-        android:background="@android:color/darker_gray"
+        android:background="@mipmap/panel"
         android:visibility="visible"
-        app:background="@android:color/darker_gray"
         app:layout_constraintBottom_toTopOf="@+id/onboarding_action_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@android:color/darker_gray"
-        tools:srcCompat="@android:color/darker_gray" />
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/onboarding_digit_to_draw"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="32dp"
+        android:background="@mipmap/eight"
+        app:layout_constraintBottom_toBottomOf="@+id/onboarding_background_modal"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@id/onboarding_background_modal"
+        app:layout_constraintTop_toTopOf="@+id/onboarding_background_modal"
+        app:layout_constraintVertical_bias="0.514" />
+
+    <ImageView
+        android:id="@+id/onboarding_grid"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="32dp"
+        android:background="@mipmap/grid"
+        app:layout_constraintBottom_toBottomOf="@+id/onboarding_background_modal"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@id/onboarding_background_modal"
+        app:layout_constraintTop_toTopOf="@+id/onboarding_background_modal"
+        app:layout_constraintVertical_bias="0.514" />
 
     <com.example.manuel.a1x1trainer.Drawable.PaintView
         android:id="@+id/onboarding_paint_edit"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="@+id/onboarding_background_modal"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@id/onboarding_background_modal"
@@ -57,13 +86,16 @@
 
     <TextView
         android:id="@+id/onboarding_description1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="casual"
         android:text="@string/onboarding_description_1"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/onboarding_paint_edit"
         app:layout_constraintStart_toStartOf="@+id/onboarding_background_modal"
         app:layout_constraintTop_toTopOf="@+id/onboarding_paint_edit" />
 
@@ -73,9 +105,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="casual"
         android:text="@string/onboarding_description_2"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/onboarding_background_modal"
         app:layout_constraintTop_toBottomOf="@+id/onboarding_description1" />
 
@@ -85,9 +118,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginBottom="24dp"
+        android:fontFamily="casual"
         android:text="@string/onboarding_user_input"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/onboarding_paint_edit"
         app:layout_constraintStart_toStartOf="@+id/onboarding_background_modal" />
 
@@ -105,26 +139,58 @@
 
     <Button
         android:id="@+id/onboarding_back_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@mipmap/button_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/onboarding_titlebar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="74dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="74dp"
+        android:layout_marginBottom="16dp"
+        android:src="@mipmap/panel_header"
+        app:layout_constraintBottom_toTopOf="@+id/onboarding_paint_edit"
+        app:layout_constraintEnd_toEndOf="@+id/onboarding_background_modal"
+        app:layout_constraintStart_toStartOf="@+id/onboarding_background_modal"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-        android:id="@+id/test_text"
+        android:id="@+id/onboarding_title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif"
+        android:shadowColor="@color/black"
+        android:shadowDy="-5"
+        android:shadowRadius="5"
+        android:text="@string/onboarding_go_titlebar"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/onboarding_titlebar"
+        app:layout_constraintEnd_toEndOf="@+id/onboarding_titlebar"
+        app:layout_constraintStart_toStartOf="@+id/onboarding_titlebar"
+        app:layout_constraintTop_toTopOf="@+id/onboarding_titlebar" />
+
+    <Button
+        android:id="@+id/onboarding_scoreboard_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/onboarding_user_input_text"
-        app:layout_constraintEnd_toStartOf="@+id/onboarding_paint_edit"
-        app:layout_constraintStart_toStartOf="@+id/onboarding_background_modal"
-        app:layout_constraintTop_toBottomOf="@+id/onboarding_description2" />
+        android:background="@mipmap/button_highscore"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/onboarding_action_btn"
+        app:layout_constraintStart_toEndOf="@+id/onboarding_action_btn"
+        app:layout_constraintTop_toTopOf="@+id/onboarding_action_btn" />
 
 </android.support.constraint.ConstraintLayout>

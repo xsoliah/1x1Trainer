@@ -1,12 +1,16 @@
 package com.example.manuel.a1x1trainer.Activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
 import com.example.manuel.a1x1trainer.R;
 
-public class AnswerFeedbackActivity extends Activity {
+/**
+ * Answer Feedback Activity
+ *
+ * should indicate if the given answer was right or wrong
+ */
+public class AnswerFeedbackActivity extends GameModeActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +23,7 @@ public class AnswerFeedbackActivity extends Activity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
+        // metrics relative to parents metrics
         getWindow().setLayout((int)(width*.8), (int)(height*.6));
     }
 }

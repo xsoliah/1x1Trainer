@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="@mipmap/background">
 
     <nl.dionsegijn.konfetti.KonfettiView
         android:id="@+id/postquiz_view_konfetti"
@@ -19,23 +18,23 @@
         android:id="@+id/postquiz_background_modal"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="64dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="64dp"
         android:layout_marginBottom="64dp"
-        android:src="@android:color/darker_gray"
+        android:background="@mipmap/panel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@android:color/darker_gray" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/postquiz_solved_questions_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="casual"
         android:text="@string/postquiz_solved_questions_text"
         android:textColor="@android:color/black"
         android:textSize="17dp"
@@ -48,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:fontFamily="casual"
         android:text="@string/postquiz_score_text"
         android:textColor="@android:color/black"
         android:textSize="17sp"
@@ -84,15 +84,17 @@
         android:id="@+id/postquiz_name_input"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="124dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
         android:ems="10"
+        android:hint="@string/postquiz_hint"
         android:inputType="textPersonName"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/postquiz_solved_questions_text"
-        app:layout_constraintEnd_toEndOf="@+id/postquiz_background_modal"
-        app:layout_constraintStart_toStartOf="@+id/postquiz_background_modal"
+        app:layout_constraintEnd_toEndOf="@+id/postquiz_titlebar"
+        app:layout_constraintStart_toStartOf="@+id/postquiz_titlebar"
         app:layout_constraintTop_toTopOf="@+id/postquiz_background_modal" />
 
     <ImageView
@@ -100,22 +102,28 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="74dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="74dp"
         android:layout_marginBottom="16dp"
+        android:src="@mipmap/panel_header"
         app:layout_constraintBottom_toTopOf="@+id/postquiz_name_input"
         app:layout_constraintEnd_toEndOf="@+id/postquiz_background_modal"
         app:layout_constraintStart_toStartOf="@+id/postquiz_background_modal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/holo_green_dark" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/postquiz_title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif"
+        android:shadowColor="@color/black"
+        android:shadowDy="-5"
+        android:shadowRadius="5"
         android:text="@string/postquiz_titlebar"
         android:textColor="@android:color/background_light"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/postquiz_titlebar"
         app:layout_constraintEnd_toEndOf="@+id/postquiz_titlebar"
         app:layout_constraintStart_toStartOf="@+id/postquiz_titlebar"
@@ -124,8 +132,9 @@
     <Button
         android:id="@+id/ppostquiz_check_btn"
         android:layout_width="0dp"
-        android:layout_height="46dp"
+        android:layout_height="42dp"
         android:layout_marginStart="8dp"
+        android:background="@mipmap/button_ok"
         app:layout_constraintBaseline_toBaselineOf="@+id/postquiz_result_btn"
         app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintEnd_toStartOf="@+id/postquiz_result_btn"
@@ -135,9 +144,10 @@
     <Button
         android:id="@+id/postquiz_result_btn"
         android:layout_width="0dp"
-        android:layout_height="46dp"
+        android:layout_height="42dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="42dp"
+        android:background="@mipmap/button_overview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintEnd_toEndOf="@+id/postquiz_background_modal"

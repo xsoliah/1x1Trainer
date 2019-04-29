@@ -28,7 +28,7 @@ import static com.example.manuel.a1x1trainer.TestUtils.checkTextColor;
 import static com.example.manuel.a1x1trainer.TestUtils.checkTextViewShows;
 
 @RunWith(AndroidJUnit4.class)
-public class QuizResultActivityTest extends ActivityTest {
+public class QuizResultActivityTest {
     private Game sampleGame;
 
     @Rule
@@ -48,7 +48,7 @@ public class QuizResultActivityTest extends ActivityTest {
         Game game = new Game();
         Random r = new Random();
         for (int i = 0; i < RuntimeConstants.MAX_NUMBER_OF_QUESTIONS; ++i) {
-            Question question = QuestionFactory.generateQuestion();
+            Question question = QuestionFactory.createQuestion();
             boolean shouldUserAnswerRandom = r.nextBoolean();
             if (!shouldUserAnswerRandom)
                 question.setUserAnswer(question.getAnswerString());

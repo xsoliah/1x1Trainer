@@ -18,6 +18,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.setClassifiedResult.runner.AndroidJUnitRunner"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -52,5 +53,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-web:3.1.0'
     androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-idling-resource:3.1.0'
+
     testImplementation 'junit:junit:4.12'
 }

@@ -1,13 +1,12 @@
 package com.example.manuel.a1x1trainer.Activities;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -24,15 +23,20 @@ import static android.util.TypedValue.COMPLEX_UNIT_PX;
 public class QuizResultActivity extends KonfettiBackgroundActivity {
 
     private TableLayout gameResultTable;
+    private TableRow trueSampleTableRow;
+    private TableRow falseSampleTableRow;
     private TextView trueSampleNumberCell;
     private TextView trueSampleQuestionCell;
     private TextView trueSampleAnswerCell;
+    private ImageView trueSampleAnswerImage;
     private TextView falseSampleNumberCell;
     private TextView falseSampleQuestionCell;
     private TextView falseSampleAnswerCell;
+    private ImageView falseSampleAnswerImage;
     Button resultBackButton;
     private Game game;
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +51,16 @@ public class QuizResultActivity extends KonfettiBackgroundActivity {
         setContentView(R.layout.activity_quiz_result);
 
         gameResultTable = findViewById(R.id.result_table);
+        trueSampleTableRow = findViewById(R.id.result_true_sample_row);
+        falseSampleTableRow = findViewById(R.id.result_false_sample_row);
         trueSampleNumberCell = findViewById(R.id.result_true_sample_num_cell);
         trueSampleQuestionCell = findViewById(R.id.result_true_sample_question_cell);
         trueSampleAnswerCell = findViewById(R.id.result_true_sample_answer_cell);
+        trueSampleAnswerImage = findViewById(R.id.result_true_image);
         falseSampleNumberCell = findViewById(R.id.result_false_sample_num_cell);
         falseSampleQuestionCell = findViewById(R.id.result_false_sample_question_cell);
         falseSampleAnswerCell = findViewById(R.id.result_false_sample_answer_cell);
+        falseSampleAnswerImage = findViewById(R.id.result_false_image);
         resultBackButton = findViewById(R.id.result_back_btn);
         viewKonfetti = findViewById(R.id.result_view_konfetti);
 
@@ -73,6 +81,7 @@ public class QuizResultActivity extends KonfettiBackgroundActivity {
         Integer counter = 1;
         for (Question question : questions) {
             TableRow newTableRow = new TableRow(this);
+            newTableRow.setMinimumHeight(question.isRightUserAnswer() ? trueSampleTableRow.getMinimumHeight() : falseSampleTableRow.getMinimumHeight());
 
             // generate number
             TextView newNumber = new TextView(this);
@@ -92,16 +101,21 @@ public class QuizResultActivity extends KonfettiBackgroundActivity {
 
             // generate answer
             TextView newAnswer = new TextView(this);
-            newAnswer.setText(question.getAnswerString());
+            newAnswer.setText(question.getUserAnswer());
             newAnswer.setLayoutParams(question.isRightUserAnswer() ? trueSampleAnswerCell.getLayoutParams() : falseSampleAnswerCell.getLayoutParams());
             newAnswer.setTextColor(question.isRightUserAnswer() ? getColor(R.color.green) : getColor(R.color.red));
             newAnswer.setGravity(question.isRightUserAnswer() ? trueSampleAnswerCell.getGravity() : falseSampleAnswerCell.getGravity());
             newAnswer.setTextSize(COMPLEX_UNIT_PX, question.isRightUserAnswer() ? trueSampleAnswerCell.getTextSize() : falseSampleAnswerCell.getTextSize());
 
+            ImageView feedbackImage = new ImageView(this);
+            feedbackImage.setImageDrawable(question.isRightUserAnswer() ? trueSampleAnswerImage.getDrawable(): falseSampleAnswerImage.getDrawable());
+            feedbackImage.setLayoutParams(question.isRightUserAnswer() ? trueSampleAnswerImage.getLayoutParams() : falseSampleAnswerImage.getLayoutParams());
+
             // set parents
             newTableRow.addView(newNumber);
             newTableRow.addView(newQuestion);
             newTableRow.addView(newAnswer);
+            newTableRow.addView(feedbackImage);
             gameResultTable.addView(newTableRow);
 
             counter++;

@@ -6,6 +6,11 @@ import com.example.manuel.a1x1trainer.Ressources.UserCredentials;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 
+/**
+ * Get Session Service
+ *
+ * Web-Service for requesting a session for a given user
+ */
 public class GetSessionService extends AppService {
     private final String METHOD_NAME = "getSession";
 
@@ -22,6 +27,10 @@ public class GetSessionService extends AppService {
                 "https://schule-dev.tugraz.at/einmaleins/api/sessionService";
     }
 
+    /**
+     * Creates the SOAP Object
+     * @return SOAP-Envelope
+     */
     @Override
     public SoapObject createSoapObject() {
         SoapObject soapObject = new SoapObject(URL, METHOD_NAME);

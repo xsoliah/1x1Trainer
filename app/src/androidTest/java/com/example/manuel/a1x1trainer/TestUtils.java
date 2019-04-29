@@ -1,18 +1,9 @@
 package com.example.manuel.a1x1trainer;
 
-import android.view.MotionEvent;
-import android.view.View;
-
 import com.example.manuel.a1x1trainer.Activities.ClassificationReceiverActivity;
 import com.example.manuel.a1x1trainer.Classifier.Classification;
 import com.example.manuel.a1x1trainer.Ressources.RuntimeConstants;
 
-import org.hamcrest.Matcher;
-import org.tensorflow.Session;
-
-import androidx.test.espresso.UiController;
-import androidx.test.espresso.ViewAction;
-import androidx.test.espresso.action.MotionEvents;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="@mipmap/background">
 
     <ImageView
         android:id="@+id/quiz_countdown_background"
@@ -13,7 +13,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/round_button"
+        android:background="@mipmap/gameuhr"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,29 +22,51 @@
         android:id="@+id/quiz_background_modal"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="64dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
-        android:src="@android:color/darker_gray"
+        android:background="@mipmap/panel"
         app:layout_constraintBottom_toTopOf="@+id/quiz_back_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/darker_gray" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/quiz_fake_middle"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="42dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/quiz_background_modal"
         app:layout_constraintEnd_toEndOf="@+id/quiz_background_modal"
         app:layout_constraintStart_toStartOf="@+id/quiz_background_modal"
         app:layout_constraintTop_toTopOf="@+id/quiz_background_modal"
         app:srcCompat="@android:color/background_light" />
+
+    <ImageView
+        android:id="@+id/quiz_left_grid"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:background="@mipmap/grid"
+        app:layout_constraintBottom_toBottomOf="@+id/quiz_fake_middle"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_fake_middle"
+        app:layout_constraintTop_toTopOf="@+id/quiz_fake_middle"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/quiz_right_grid"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:background="@mipmap/grid"
+        app:layout_constraintBottom_toBottomOf="@id/quiz_fake_middle"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="@id/quiz_fake_middle"
+        app:layout_constraintTop_toTopOf="@id/quiz_fake_middle" />
 
     <com.example.manuel.a1x1trainer.Drawable.PaintView
         android:id="@+id/quiz_left_paint_edit"
@@ -72,12 +94,19 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@mipmap/button_orange"
+        android:fontFamily="sans-serif"
+        android:shadowColor="@color/black"
+        android:shadowDy="-5"
+        android:shadowRadius="5"
         android:text="@string/quiz_clear_btn"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/quiz_progressbar"
+        app:layout_constraintBottom_toTopOf="@+id/quiz_progressbar_image"
         app:layout_constraintEnd_toEndOf="@+id/quiz_right_paint_edit"
         app:layout_constraintStart_toStartOf="@+id/quiz_right_paint_edit"
         app:layout_constraintTop_toBottomOf="@+id/quiz_fake_middle" />
@@ -87,59 +116,83 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@mipmap/button_green"
+        android:fontFamily="sans-serif"
+        android:shadowColor="@color/black"
+        android:shadowDy="-5"
+        android:shadowRadius="5"
         android:text="@string/quiz_ok_btn"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/quiz_progressbar"
+        app:layout_constraintBottom_toTopOf="@+id/quiz_progressbar_image"
         app:layout_constraintEnd_toEndOf="@+id/quiz_left_paint_edit"
         app:layout_constraintStart_toStartOf="@+id/quiz_left_paint_edit"
         app:layout_constraintTop_toBottomOf="@+id/quiz_fake_middle" />
 
     <Button
         android:id="@+id/quiz_back_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@mipmap/button_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/quiz_progressbar_image"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="8dp"
+        android:background="@mipmap/bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_background_modal"
+        app:layout_constraintStart_toStartOf="@+id/quiz_background_modal" />
 
     <ProgressBar
         android:id="@+id/quiz_progressbar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginEnd="64dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/quiz_background_modal"
-        app:layout_constraintStart_toStartOf="@+id/quiz_background_modal" />
+        android:background="@mipmap/bar"
+        app:layout_constraintBottom_toBottomOf="@+id/quiz_progressbar_image"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_progressbar_image"
+        app:layout_constraintStart_toStartOf="@+id/quiz_progressbar_image"
+        app:layout_constraintTop_toTopOf="@id/quiz_progressbar_image" />
 
     <ImageView
         android:id="@+id/quiz_titlebar"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="74dp"
+        android:layout_marginStart="114dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="74dp"
-        android:layout_marginBottom="16dp"
-        android:src="@android:color/holo_green_dark"
+        android:layout_marginEnd="114dp"
+        android:layout_marginBottom="24dp"
+        android:src="@mipmap/panel_header"
         app:layout_constraintBottom_toTopOf="@+id/quiz_fake_middle"
         app:layout_constraintEnd_toEndOf="@+id/quiz_background_modal"
         app:layout_constraintStart_toStartOf="@+id/quiz_background_modal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/holo_green_dark" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/quiz_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/quiz_titlebar"
         app:layout_constraintEnd_toEndOf="@+id/quiz_titlebar"
         app:layout_constraintHorizontal_bias="0.42"
@@ -151,12 +204,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:fontFamily="casual"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/quiz_titlebar"
-        app:layout_constraintStart_toEndOf="@+id/quiz_question"
-        app:layout_constraintTop_toTopOf="@+id/quiz_titlebar" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/quiz_question"
+        app:layout_constraintStart_toEndOf="@+id/quiz_question" />
 
     <TextView
         android:id="@+id/quiz_countdown"
@@ -166,7 +219,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="60"
+        android:fontFamily="casual"
+        android:text="@string/quiz_countdown_init"
         android:textColor="@android:color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/quiz_countdown_background"
@@ -178,24 +232,25 @@
         android:id="@+id/quiz_score_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
-        android:src="@android:color/holo_orange_light"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@mipmap/score"
         app:layout_constraintBottom_toTopOf="@+id/quiz_background_modal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/quiz_titlebar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/holo_orange_light" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/quiz_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="casual"
         android:text="@string/zero"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/background_light"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/quiz_score_background"
         app:layout_constraintEnd_toEndOf="@+id/quiz_score_background"
@@ -209,25 +264,27 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="64dp"
         android:layout_marginBottom="8dp"
-        android:src="@android:color/holo_blue_light"
+        android:background="@mipmap/panel"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/quiz_fake_middle"
         app:layout_constraintEnd_toEndOf="@+id/quiz_background_modal"
         app:layout_constraintStart_toStartOf="@+id/quiz_background_modal"
-        app:layout_constraintTop_toTopOf="@+id/quiz_fake_middle"
-        app:srcCompat="@android:color/holo_blue_light" />
+        app:layout_constraintTop_toTopOf="@+id/quiz_fake_middle" />
 
     <TextView
         android:id="@+id/quiz_feedback_modal_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:fontFamily="casual"
         android:textSize="36sp"
+        android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/quiz_feedback_modal"
         app:layout_constraintEnd_toEndOf="@+id/quiz_feedback_modal"
         app:layout_constraintStart_toStartOf="@+id/quiz_feedback_modal"
         app:layout_constraintTop_toTopOf="@+id/quiz_feedback_modal" />
+
+
 
     <ProgressBar
         android:id="@+id/quiz_loading_spinner"
@@ -237,12 +294,37 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@mipmap/worm1"
         app:layout_constraintBottom_toBottomOf="@+id/quiz_titlebar"
         app:layout_constraintEnd_toEndOf="@+id/quiz_titlebar"
         app:layout_constraintStart_toStartOf="@+id/quiz_titlebar"
         app:layout_constraintTop_toTopOf="@+id/quiz_titlebar" />
 
+    <ImageView
+        android:id="@+id/quiz_target"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:src="@mipmap/home"
+        app:layout_constraintBottom_toBottomOf="@+id/quiz_progressbar_image"
+        app:layout_constraintDimensionRatio="h,1:1"
+        app:layout_constraintStart_toEndOf="@+id/quiz_progressbar_image"
+        app:layout_constraintTop_toTopOf="@+id/quiz_progressbar_image" />
 
+    <ImageView
+        android:id="@+id/quiz_worm"
+        android:layout_width="35dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:src="@mipmap/worm1"
+        app:layout_constraintBottom_toBottomOf="@+id/quiz_progressbar_image"
+        app:layout_constraintTop_toTopOf="@+id/quiz_progressbar_image"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="361dp" />
 </android.support.constraint.ConstraintLayout>
 
 

@@ -8,20 +8,30 @@ import java.security.NoSuchAlgorithmException;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+/**
+ * Security Algorithm
+ *
+ * Provides the necessary security routines
+ */
 public class SecurityAlgorithm {
     private final static String SHA256_INSTANCE = "SHA-256";
     private final static String UTF8 = "UTF-8";
     private final static String ZERO = "0";
 
+    /**
+     * performs a sha256 hashing
+     * @param base string to hash
+     * @return 256bit hash-value as string
+     */
     public static String sha256(String base) {
         try{
             MessageDigest digest = MessageDigest.getInstance(SHA256_INSTANCE);
             byte[] hash = digest.digest(base.getBytes(UTF8));
             StringBuffer hexString = new StringBuffer();
 
-            for (int i = 0; i < hash.length; i++) {
-                String hex = Integer.toHexString(0xff & hash[i]);
-                if(hex.length() == 1) hexString.append(ZERO);
+            for (byte aHash : hash) {
+                String hex = Integer.toHexString(0xff & aHash);
+                if (hex.length() == 1) hexString.append(ZERO);
                 hexString.append(hex);
             }
 
@@ -33,6 +43,12 @@ public class SecurityAlgorithm {
 
     private final static String HMAC_SHA256 = "HmacSHA256";
 
+    /**
+     * performs a hmac sha256 encryption
+     * @param key hmac key
+     * @param data string to encrypt
+     * @return encrypted string
+     */
     public static String hmac_sha256(String key, String data) {
         try {
 

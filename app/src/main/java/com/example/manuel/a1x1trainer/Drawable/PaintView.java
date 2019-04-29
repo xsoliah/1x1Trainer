@@ -9,12 +9,13 @@ import android.graphics.EmbossMaskFilter;
 import android.graphics.MaskFilter;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.manuel.a1x1trainer.Classifier.Classification;
 import com.example.manuel.a1x1trainer.Activities.ClassificationReceiverActivity;
+import com.example.manuel.a1x1trainer.Classifier.Classification;
 import com.example.manuel.a1x1trainer.Classifier.ClassificationResultPaintViewIdentifier;
 
 import java.util.ArrayList;
@@ -22,10 +23,15 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Paint View
+ *
+ * View to draw onto
+ */
 public class PaintView extends View {
     public static int BRUSH_SIZE = 40;
     public static final int DEFAULT_COLOR = Color.BLACK;
-    public static final int DEFAULT_BG_COLOR = Color.WHITE;
+    public static final int DEFAULT_BG_COLOR = Color.TRANSPARENT;
     private static final float TOUCH_TOLERANCE = 4;
     private float mX, mY;
     private Path mPath;
@@ -69,6 +75,14 @@ public class PaintView extends View {
         onFinishedDrawing = drawingLock.newCondition();
     }
 
+    /**
+     * initializes the Paint View
+     * called from parent activity
+     * @param width
+     * @param height
+     * @param classification_receiver
+     * @param identifier
+     */
     public void init(int width, int height, ClassificationReceiverActivity classification_receiver, ClassificationResultPaintViewIdentifier identifier) {
         classificationResultPaintViewIdentifier = identifier;
         classificationReceiverActivity = classification_receiver;
@@ -79,16 +93,10 @@ public class PaintView extends View {
         strokeWidth = BRUSH_SIZE;
     }
 
-    public void normal() {
-        emboss = false;
-        blur = false;
-    }
-
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.save();
 
-        // sets the background to black TODO: remove
         mCanvas.drawColor(backgroundColor);
 
         for (FingerPath fp : paths) {
@@ -109,6 +117,11 @@ public class PaintView extends View {
         canvas.restore();
     }
 
+    /**
+     * called when the user starts touching the Paint View
+     * @param x x-coordinate
+     * @param y y-coordinate
+     */
     private void touchStart(float x, float y) {
         mPath = new Path();
         FingerPath fp = new FingerPath(currentColor, emboss, blur, strokeWidth, mPath);
@@ -120,6 +133,11 @@ public class PaintView extends View {
         mY = y;
     }
 
+    /**
+     * called when the user moves his finger while touching the Paint View
+     * @param x x-coordinate
+     * @param y y-coordinate
+     */
     private void touchMove(float x, float y) {
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
@@ -131,14 +149,24 @@ public class PaintView extends View {
         }
     }
 
+    /**
+     * clears the drawing from the Paint View
+     */
     public void clearScreen() {
         // clear
-        backgroundColor = DEFAULT_BG_COLOR;
+        mCanvas.drawColor(DEFAULT_BG_COLOR, PorterDuff.Mode.CLEAR);
         paths.clear();
-        normal();
+        // normal
+        emboss = false;
+        blur = false;
+
         invalidate();
     }
 
+    /**
+     * called when the user stops touching the Paint View
+     * connects the old with the new location to draw a line
+     */
     private void touchUp() {
         mPath.lineTo(mX, mY);
 
@@ -149,6 +177,12 @@ public class PaintView extends View {
         classificationReceiverActivity.returnClassificationResult(c.getLabel(), this.classificationResultPaintViewIdentifier);
     }
 
+    /**
+     * called when a motion event is triggered
+     * should react according to the type of the motion event
+     * @param event motion event to react to
+     * @return unnecessary
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         float x = event.getX();
@@ -191,9 +225,10 @@ public class PaintView extends View {
         float[] retPixels = new float[pixels.length];
         for (int i = 0; i < pixels.length; ++i) {
             // Set 0 for white and 255 for black pixel
-            int pix = pixels[i];
+            retPixels[i] = pixels[i] == 0 ? 0 : 255;
+            /*int pix = pixels[i];
             int b = pix & 0xff;
-            retPixels[i] = (float)((0xff - b)/255.0);
+            retPixels[i] = (float)((0xff - b)/255.0);*/
         }
         return retPixels;
     }

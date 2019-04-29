@@ -6,6 +6,11 @@ import com.example.manuel.a1x1trainer.Ressources.UserCredentials;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 
+/**
+ * Get Question Service
+ *
+ * Web-Service for requesting a new question from the server
+ */
 public class GetQuestionService extends AppService {
     private final String METHOD_NAME = "getQuestion";
     private final String PARAMETER_USERID = "userId";
@@ -19,6 +24,10 @@ public class GetQuestionService extends AppService {
                 "https://schule-dev.tugraz.at/einmaleins/api/questionService";
     }
 
+    /**
+     * Creates the SOAP Object
+     * @return SOAP-Envelope
+     */
     public SoapObject createSoapObject() {
         SoapObject soapObject = new SoapObject(URL, METHOD_NAME);
 

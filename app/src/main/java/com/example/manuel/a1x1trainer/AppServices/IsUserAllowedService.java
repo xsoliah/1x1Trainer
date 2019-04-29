@@ -6,6 +6,11 @@ import com.example.manuel.a1x1trainer.Security.SecurityAlgorithm;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 
+/**
+ * Is User Allowed Service
+ *
+ * Web-Service for performing a login
+ */
 public class IsUserAllowedService extends AppService {
     private final String METHOD_NAME = "isUserAllowed";
 
@@ -28,10 +33,10 @@ public class IsUserAllowedService extends AppService {
         Password = password;
     }
 
-    public String getSoapAction() {
-        return this.SOAP_ACTION;
-    }
-
+    /**
+     * Creates the SOAP Object
+     * @return SOAP-Envelope
+     */
     public SoapObject createSoapObject() {
         SoapObject soapObject = new SoapObject(RuntimeConstants.USERMANAGER_URL, METHOD_NAME);
 

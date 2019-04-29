@@ -10,6 +10,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Tensorflow Classifier
+ *
+ * Implementation of the Classifier with Google's tensorflow framework
+ */
 public class TensorFlowClassifier {
     private TensorFlowInferenceInterface tfHelper;
 
@@ -25,8 +30,14 @@ public class TensorFlowClassifier {
 
     private String KEEP_PROP_INPUT = "keep_prob";
 
-    //given a saved drawn model, lets read all the classification labels that are
-    //stored and write them to our in memory labels list
+    /**
+     * given a saved drawn model, lets read all the classification labels that are
+     * stored and write them to our in memory labels list
+     * @param am asset manager
+     * @param fileName name of the file
+     * @return list of labels
+     * @throws IOException
+     */
     private static List<String> readLabels(AssetManager am, String fileName) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(am.open(fileName)));
 
@@ -40,9 +51,22 @@ public class TensorFlowClassifier {
         return labels;
     }
 
-    //given a model, its label file, and its metadata
-    //fill out a classifier object with all the necessary
-    //metadata including output prediction
+    /**
+     *
+     * given a model, its label file, and its metadata
+     * fill out a classifier object with all the necessary
+     * metadata including output prediction
+     * @param assetManager asset manager
+     * @param name name for the model
+     * @param modelPath path of the model
+     * @param labelFile path of the labels
+     * @param inputSize size of the input layer
+     * @param inputName name of the input
+     * @param outputName name of the output
+     * @param feedKeepProb not sure
+     * @return the created Tensorflow Classifier
+     * @throws IOException
+     */
     public static TensorFlowClassifier create(AssetManager assetManager, String name,
                                               String modelPath, String labelFile, int inputSize, String inputName, String outputName,
                                               boolean feedKeepProb) throws IOException {
@@ -76,10 +100,11 @@ public class TensorFlowClassifier {
         return c;
     }
 
-    public String name() {
-        return name;
-    }
-
+    /**
+     * Propergates the input through the model and searches the node with the highest conf
+     * @param pixels convolution of the drawen image
+     * @return a Classification
+     */
     public Classification recognize(final float[] pixels) {
 
         //using the interface

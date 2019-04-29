@@ -5,6 +5,11 @@ import com.example.manuel.a1x1trainer.Ressources.RuntimeConstants;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 
+/**
+ * Give Answer Service
+ *
+ * Web-Service for submit an answer to the server
+ */
 public class GiveAnswerService extends AppService {
     private final String METHOD_NAME = "giveAnswer";
 
@@ -31,6 +36,10 @@ public class GiveAnswerService extends AppService {
         sessionId = session_id;
     }
 
+    /**
+     * Creates the SOAP Object
+     * @return SOAP-Envelope
+     */
     @Override
     public SoapObject createSoapObject() {
         SoapObject soapObject = new SoapObject(URL, METHOD_NAME);

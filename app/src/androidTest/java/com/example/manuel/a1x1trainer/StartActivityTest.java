@@ -1,6 +1,5 @@
 package com.example.manuel.a1x1trainer;
 
-import com.example.manuel.a1x1trainer.Activities.HelpActivity;
 import com.example.manuel.a1x1trainer.Activities.KurzspielActivity;
 import com.example.manuel.a1x1trainer.Activities.LoginActivity;
 import com.example.manuel.a1x1trainer.Activities.StartActivity;
@@ -33,10 +32,5 @@ public class StartActivityTest {
     @Test
     public void testKurzspielClick() {
         checkActivityAfterClick(R.id.start_kurzspiel_btn, KurzspielActivity.class.getName());
-    }
-
-    @Test
-    public void testHelpClick() {
-        checkActivityAfterClick(R.id.start_help_btn, HelpActivity.class.getName());
     }
 }
